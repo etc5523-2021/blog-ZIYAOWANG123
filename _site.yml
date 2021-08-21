@@ -1,0 +1,12 @@
+name: "Blog-United States"
+title: "COVID Updates in United States"
+description: |
+  COVID Updates in United States
+output_dir: "docs"
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: about.html
+output: distill::distill_article
