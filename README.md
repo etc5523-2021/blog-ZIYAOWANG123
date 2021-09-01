@@ -2,7 +2,7 @@
 
 
 This is the blog of ZIYAO WANG (Billy).
-The URL of this blog is [FILL].
+The URL of this blog is [https://etc5523-2021.github.io/blog-ZIYAOWANG123].
 
 ## Blog Post 1
 

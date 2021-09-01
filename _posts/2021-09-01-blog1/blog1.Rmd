@@ -1,0 +1,24 @@
+---
+title: "Blog-1"
+description: |
+  Entry 1 - The update of COVID-19 in the United States.
+author:
+  - name: ZIYAO WANG (Billy)
+date: "`r Sys.Date()`"
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = F, message = F)
+```
+
+# Target Country - United Stated
+ - Brief Introduction: 
+
+## Data Description
+
+
+
