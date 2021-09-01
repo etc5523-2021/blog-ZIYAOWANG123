@@ -1,12 +1,14 @@
 ---
 title: "Blog-1"
-description: |
+description:
   Entry 1 - The update of COVID-19 in the United States.
 author:
   - name: ZIYAO WANG (Billy)
 date: "`r Sys.Date()`"
 output:
   distill::distill_article:
+    toc: true
+    toc_float: true
     self_contained: false
 ---
 
@@ -15,10 +17,52 @@ output:
 knitr::opts_chunk$set(echo = FALSE, warning = F, message = F)
 ```
 
-# Target Country - United Stated
+```{r loadpackages}
+library(tidyverse)
+library(DT)
+library(gt)
+library(kableExtra)
+library(janitor)
+library(naniar)
+library(broom)
+```
+
+```{r loaddata}
+# remotes::install_github("yulab-smu/nCov2019", dependencies = TRUE, force = TRUE)
+library(nCov2019)
+res <- query()
+```
+
+```{r readdata}
+names(res)
+x <- res$latest
+y <- res$historical
+z <- res$vaccine
+summary(z)
+
+```
+
+latest data sets
+```{r}
+us_his <- y["USA"]
+df_brief <- x["Global"]
+df_detail <- (x$detail)
+
+vac <- head(z["all"])
+
+```
+
+
+```{r data2}
+
+```
+
+
+
+## Target Country - United Stated
  - Brief Introduction: 
 
-## Data Description
+### Data Description
 
 
 
