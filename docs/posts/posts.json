@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/welcome/",
+    "title": "Welcome to COVID-19 Updates",
+    "description": "Welcome to our new blog. The first blog is the COVID-19 updates in the United States. \n\nFirstly, this blog will provide an interactive table for users/readers to explore the relevant information by themselves. \nIt will not only offer them a chance to obtain an overview of the COVID-19 circumstance in the US but also\nunderstand the relevant data or statistics better. \nSecondly, it will construct a numeric summary table to support the related story \nwhich helps the readers to understand the updated information regarding COVID-19 in the US comprehensively.\n\n**We hope you enjoy the story and find some interesting insights!**",
+    "author": [
+      {
+        "name": "ZIYAO WANG (Billy)",
+        "url": {}
+      }
+    ],
+    "date": "2021-09-02",
+    "categories": [],
+    "contents": "\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2021-09-02T16:53:44+10:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2021-09-01-blog1/",
     "title": "Blog-1",
     "description": "Entry 1 - The update of COVID-19 in the United States.",
@@ -11,26 +28,9 @@
     ],
     "date": "2021-09-02",
     "categories": [],
-    "contents": "\r\n\r\nContents\r\nTarget Country - United Stated\r\nData Description\r\n\r\n\r\n\r\n\r\n\r\nTarget Country - United Stated\r\nBrief Introduction:\r\nData Description\r\n\r\n\r\n\r\n",
+    "contents": "\r\n\r\nContents\r\n1. how can I make the subscribe.html work?\r\n2. why I don’t have blog1.html in my docs/post folder?\r\n3. the html code in Welcome rmd will not run in index html, why?\r\nTarget Country - United Stated\r\nData Description\r\n\r\n\r\n\r\n1. how can I make the subscribe.html work?\r\n2. why I don’t have blog1.html in my docs/post folder?\r\n3. the html code in Welcome rmd will not run in index html, why?\r\n\r\n\r\n\r\nTarget Country - United Stated\r\nBrief Introduction:\r\nData Description\r\nThis blog has used two main data sets as the base for the construction of data communication regarding COVID-19 information.\r\nData Source 1 - R Package nCov2019\r\nThe data set is collected from various sources for different relevant information.\r\n- Latest data of corona virus cases from worldometers\r\n- Historical data of corona virus cases from JHUCSSE\r\n- Vaccine data from raps.org\r\n- Therapeutics data from raps.org\r\nThis data source contains two core parts. First one is the GUI explorer section which has a function of dashboard to use a simple and interactive dashboard for information communication. Second part is the CLI analysis which includes a work flow from data query to data operation and lastly the visulization output of both geographic and animation plots.\r\nThis blog will focus on the CLI analysis part, which will query the update COVID-19 data from five different aspects. It will include the “latest update COVID-19 info.”, “global COVID-19 info.”, “historical COVID-19 info.”, “vaccine details”, “therapeutics status and progress”.\r\n\r\nHere is the variable descriptions for this data source\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nTable 1: Variable Summary for Data Source 1\r\n\r\n\r\nvariable_names\r\n\r\n\r\ndescription\r\n\r\n\r\nactive number\r\n\r\n\r\nconfirmed cases - deaths - recovered\r\n\r\n\r\nactivePerOneMillion\r\n\r\n\r\nactive number / million population\r\n\r\n\r\ncases\r\n\r\n\r\nconfirmed cases\r\n\r\n\r\ncasesPerOneMillion\r\n\r\n\r\nconfirmed cases / million population\r\n\r\n\r\ncontinent\r\n\r\n\r\ncontinent\r\n\r\n\r\ncountry\r\n\r\n\r\ncountry\r\n\r\n\r\ncritical\r\n\r\n\r\nCritical patients\r\n\r\n\r\ncriticalPerOneMillion\r\n\r\n\r\nCritical patients / million population\r\n\r\n\r\ndate\r\n\r\n\r\ndate\r\n\r\n\r\ndeaths\r\n\r\n\r\ndeaths\r\n\r\n\r\ndeathsPerOneMillion\r\n\r\n\r\ndeaths patients / million population\r\n\r\n\r\noneCasePerPeople\r\n\r\n\r\none Case Per People\r\n\r\n\r\noneDeathPerPeople\r\n\r\n\r\none Death Per People\r\n\r\n\r\noneTestPerPeople\r\n\r\n\r\none Test Per People\r\n\r\n\r\npopulation\r\n\r\n\r\npopulation\r\n\r\n\r\nrecovered\r\n\r\n\r\nrecovered\r\n\r\n\r\nrecoveredPerOneMillion\r\n\r\n\r\nrecovered Per One Million\r\n\r\n\r\ntests\r\n\r\n\r\nCOVID-19 test\r\n\r\n\r\ntestsPerOneMillion\r\n\r\n\r\nCOVID-19 test / million population\r\n\r\n\r\ntodayCases\r\n\r\n\r\nconfirmed cases in today\r\n\r\n\r\ntodayDeaths\r\n\r\n\r\nconfirmed death cases in today\r\n\r\n\r\ntodayRecovered\r\n\r\n\r\nconfirmed recovered cases in today\r\n\r\n\r\nupdated\r\n\r\n\r\nthe latest update time\r\n\r\n\r\n\r\nData Source 2 - New York Times Covid-19 data sets\r\nThis data source is collected by the journalists from the New York Times across several time zones to monitor news conferences and public data releases with seeking clarification from official bodies. It is under the license of CC BY-NC which allows the users to adapt the data with proper attribution given.\r\n\r\nContact Information: covid-data@nytimes.com\r\n\r\n\r\nHere is the variable descriptions for this data source\r\n\r\n\r\n\r\nTable 2: Variable Summary for Data Source 2\r\n\r\n\r\nvariable_name\r\n\r\n\r\ntypes\r\n\r\n\r\ndescription\r\n\r\n\r\ndate\r\n\r\n\r\ncharacter\r\n\r\n\r\ndate of record\r\n\r\n\r\nstate\r\n\r\n\r\ncharacter\r\n\r\n\r\nstate name (in US)\r\n\r\n\r\nfips\r\n\r\n\r\ninteger\r\n\r\n\r\nFederal Information Processing Standards (unique code for each state/counties)\r\n\r\n\r\ncases\r\n\r\n\r\ninteger\r\n\r\n\r\nconfirmed cases (accumulated)\r\n\r\n\r\ndeaths\r\n\r\n\r\ninteger\r\n\r\n\r\nconfirmed deaths (accumulated)\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nlatest data sets\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
     "preview": {},
-    "last_modified": "2021-09-02T00:39:53+10:00",
+    "last_modified": "2021-09-02T21:52:16+10:00",
     "input_file": "blog1.knit.md"
-  },
-  {
-    "path": "posts/welcome/",
-    "title": "Welcome to COVID-19 Updates",
-    "description": "Welcome to our new blog. The first blog is the COVID-19 updates in the United States. \n<br>\nFirstly, this blog will provide an interactive table for users/readers to explore the relevant information by themselves. \nIt will not only offer them a chance to obtain an overview of the COVID-19 circumstance in the US but also\nunderstand the relevant data or statistics better. \nSecondly, it will construct a numeric summary table to support the related story \nwhich helps the readers to understand the updated information regarding COVID-19 in the US comprehensively.\n<br> \nWe hope you enjoy the story and find some interesting insights!",
-    "author": [
-      {
-        "name": "ZIYAO WANG (Billy)",
-        "url": {}
-      }
-    ],
-    "date": "2021-09-02",
-    "categories": [],
-    "contents": "\r\n\r\n\r\n\r\n",
-    "preview": {},
-    "last_modified": "2021-09-02T00:40:20+10:00",
-    "input_file": "welcome.knit.md"
   }
 ]

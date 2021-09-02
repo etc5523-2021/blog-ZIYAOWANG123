@@ -121,7 +121,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["blog1_files/anchor-4.2.2/anchor.min.js","blog1_files/bowser-1.9.3/bowser.min.js","blog1_files/distill-2.2.21/template.v2.js","blog1_files/header-attrs-2.9/header-attrs.js","blog1_files/jquery-1.11.3/jquery.min.js","blog1_files/popper-2.6.0/popper.min.js","blog1_files/tippy-6.2.7/tippy-bundle.umd.min.js","blog1_files/tippy-6.2.7/tippy-light-border.css","blog1_files/tippy-6.2.7/tippy.css","blog1_files/tippy-6.2.7/tippy.umd.min.js","blog1_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["blog1_files/anchor-4.2.2/anchor.min.js","blog1_files/bowser-1.9.3/bowser.min.js","blog1_files/distill-2.2.21/template.v2.js","blog1_files/header-attrs-2.10/header-attrs.js","blog1_files/header-attrs-2.9/header-attrs.js","blog1_files/jquery-1.11.3/jquery.min.js","blog1_files/kePrint-0.0.1/kePrint.js","blog1_files/lightable-0.0.1/lightable.css","blog1_files/popper-2.6.0/popper.min.js","blog1_files/tippy-6.2.7/tippy-bundle.umd.min.js","blog1_files/tippy-6.2.7/tippy-light-border.css","blog1_files/tippy-6.2.7/tippy.css","blog1_files/tippy-6.2.7/tippy.umd.min.js","blog1_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2392,7 +2392,9 @@ d-appendix d-footnote-list a.footnote-backlink {
   color: var(--hover-color, white);
 }</style>
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.9/header-attrs.js"></script>
+  <script src="../../site_libs/header-attrs-2.10/header-attrs.js"></script>
+  <script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
+  <link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
   <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
   <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -2426,7 +2428,6 @@ d-appendix d-footnote-list a.footnote-backlink {
 </div>
 <div class="nav-right">
 <a href="../../index.html">Home</a>
-<a href="../../blog1.html">Blog 1</a>
 <a href="../../about.html">About</a>
 <a href="https://github.com/etc5523-2021/blog-ZIYAOWANG123" aria-label="Link to source">
 <i class="fab fa-github" aria-hidden="true"></i>
@@ -2457,13 +2458,21 @@ d-appendix d-footnote-list a.footnote-backlink {
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
+<li><a href="#how-can-i-make-the-subscribe.html-work">1. how can I make the subscribe.html work?</a></li>
+<li><a href="#why-i-dont-have-blog1.html-in-my-docspost-folder">2. why I don’t have blog1.html in my docs/post folder?</a></li>
+<li><a href="#the-html-code-in-welcome-rmd-will-not-run-in-index-html-why">3. the html code in Welcome rmd will not run in index html, why?</a>
+<ul>
 <li><a href="#target-country---united-stated">Target Country - United Stated</a>
 <ul>
 <li><a href="#data-description">Data Description</a></li>
 </ul></li>
+</ul></li>
 </ul>
 </nav>
 </div>
+<h1 id="how-can-i-make-the-subscribe.html-work">1. how can I make the subscribe.html work?</h1>
+<h1 id="why-i-dont-have-blog1.html-in-my-docspost-folder">2. why I don’t have blog1.html in my docs/post folder?</h1>
+<h1 id="the-html-code-in-welcome-rmd-will-not-run-in-index-html-why">3. the html code in Welcome rmd will not run in index html, why?</h1>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
@@ -2472,6 +2481,324 @@ d-appendix d-footnote-list a.footnote-backlink {
 <li>Brief Introduction:</li>
 </ul>
 <h3 id="data-description">Data Description</h3>
+<p>This blog has used two main data sets as the base for the construction of data communication regarding COVID-19 information.</p>
+<h4 id="data-source-1---r-package-ncov2019">Data Source 1 - R Package <code>nCov2019</code></h4>
+<p>The data set is collected from various sources for different relevant information.<br />
+- Latest data of corona virus cases from <a href="https://www.worldometers.info/coronavirus/">worldometers</a><br />
+- Historical data of corona virus cases from <a href="https://coronavirus.jhu.edu/map.html">JHUCSSE</a><br />
+- Vaccine data from <a href="https://www.raps.org/news-and-articles/news-articles/2020/3/covid-19-vaccine-tracker">raps.org</a><br />
+- Therapeutics data from <a href="https://www.raps.org/news-and-articles/news-articles/2020/3/covid-19-therapeutics-tracker">raps.org</a></p>
+<p>This data source contains two core parts. First one is the GUI explorer section which has a function of <code>dashboard</code> to use a simple and interactive dashboard for information communication. Second part is the CLI analysis which includes a work flow from data query to data operation and lastly the visulization output of both geographic and animation plots.</p>
+<p>This blog will <strong><em>focus on the CLI analysis part</em></strong>, which will query the update COVID-19 data from five different aspects. It will include the “latest update COVID-19 info.”, “global COVID-19 info.”, “historical COVID-19 info.”, “vaccine details”, “therapeutics status and progress”.</p>
+<center>
+<strong>Here is the variable descriptions for this data source</strong>
+</center>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; ">
+<table class=" lightable-classic table table-striped table-hover table-condensed" style="font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto; font-size: 10px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:variable-table">Table 1: </span>Variable Summary for Data Source 1
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;color: #4199C4 !important;background-color: #A7F5D0 !important;text-align: center;position: sticky; top:0; background-color: #FFFFFF;">
+variable_names
+</th>
+<th style="text-align:left;font-weight: bold;color: #4199C4 !important;background-color: #A7F5D0 !important;text-align: center;position: sticky; top:0; background-color: #FFFFFF;">
+description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+active number
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+confirmed cases - deaths - recovered
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+activePerOneMillion
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+active number / million population
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+cases
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+confirmed cases
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+casesPerOneMillion
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+confirmed cases / million population
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+continent
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+continent
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+country
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+country
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+critical
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+Critical patients
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+criticalPerOneMillion
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+Critical patients / million population
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+date
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+date
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+deaths
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+deaths
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+deathsPerOneMillion
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+deaths patients / million population
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+oneCasePerPeople
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+one Case Per People
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+oneDeathPerPeople
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+one Death Per People
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+oneTestPerPeople
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+one Test Per People
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+population
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+population
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+recovered
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+recovered
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+recoveredPerOneMillion
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+recovered Per One Million
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+tests
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+COVID-19 test
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+testsPerOneMillion
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+COVID-19 test / million population
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+todayCases
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+confirmed cases in today
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+todayDeaths
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+confirmed death cases in today
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+todayRecovered
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+confirmed recovered cases in today
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+updated
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+the latest update time
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<h4 id="data-source-2---new-york-times-covid-19-data-sets">Data Source 2 - <a href="https://github.com/nytimes/covid-19-data">New York Times Covid-19 data sets</a></h4>
+<p>This data source is collected by the journalists from the New York Times across several time zones to monitor news conferences and public data releases with seeking clarification from official bodies. It is under the license of <a href="https://creativecommons.org/licenses/by-nc/4.0/legalcode">CC BY-NC</a> which allows the users to adapt the data with proper attribution given.</p>
+<blockquote>
+<p>Contact Information: <a href="mailto:covid-data@nytimes.com" class="email">covid-data@nytimes.com</a></p>
+</blockquote>
+<center>
+<strong>Here is the variable descriptions for this data source</strong>
+</center>
+<div class="layout-chunk" data-layout="l-body">
+<table class=" lightable-classic table table-striped table-hover table-condensed" style="font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto; font-size: 10px; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:variablenames2">Table 2: </span>Variable Summary for Data Source 2
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;color: #4199C4 !important;background-color: #A7F5D0 !important;font-size: 12px;text-align: center;">
+variable_name
+</th>
+<th style="text-align:left;font-weight: bold;color: #4199C4 !important;background-color: #A7F5D0 !important;font-size: 12px;text-align: center;">
+types
+</th>
+<th style="text-align:left;font-weight: bold;color: #4199C4 !important;background-color: #A7F5D0 !important;font-size: 12px;text-align: center;">
+description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+date
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+character
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+date of record
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+state
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+character
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+state name (in US)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+fips
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+integer
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+Federal Information Processing Standards (unique code for each state/counties)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+cases
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+integer
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+confirmed cases (accumulated)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+deaths
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+integer
+</td>
+<td style="text-align:left;text-align: center;border-left:1px solid;border-right:1px solid;">
+confirmed deaths (accumulated)
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+latest data sets
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <div class="article-footer">

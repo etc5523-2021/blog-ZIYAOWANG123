@@ -11,13 +11,15 @@ output:
     toc_float: true
     self_contained: false
 ---
-
+# 1. how can I make the subscribe.html work?
+# 2. why I don't have blog1.html in my docs/post folder?
+# 3. the html code in Welcome rmd will not run in index html, why?
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = F, message = F)
+knitr::opts_chunk$set(echo = FALSE, warning = F, message = F, eval = F)
 ```
 
-```{r loadpackages}
+```{r loadpackages, eval=TRUE}
 library(tidyverse)
 library(DT)
 library(gt)
@@ -27,7 +29,147 @@ library(naniar)
 library(broom)
 ```
 
-```{r loaddata}
+## Target Country - United Stated
+ - Brief Introduction: 
+
+### Data Description
+
+This blog has used two main data sets as the base for the construction of data communication regarding COVID-19 information.
+
+#### Data Source 1 - R Package `nCov2019`
+
+The data set is collected from various sources for different relevant information.  
+ - Latest data of corona virus cases from [worldometers](https://www.worldometers.info/coronavirus/)  
+ - Historical data of corona virus cases from [JHUCSSE](https://coronavirus.jhu.edu/map.html)  
+ - Vaccine data from [raps.org](https://www.raps.org/news-and-articles/news-articles/2020/3/covid-19-vaccine-tracker)  
+ - Therapeutics data from [raps.org](https://www.raps.org/news-and-articles/news-articles/2020/3/covid-19-therapeutics-tracker)  
+
+This data source contains two core parts. First one is the GUI explorer section which has a function of `dashboard` to use a simple and interactive dashboard for information communication. Second part is the CLI analysis which includes a work flow from data query to data operation and lastly the visulization output of both geographic and animation plots. 
+
+This blog will __*focus on the CLI analysis part*__, which will query the update COVID-19 data from five different aspects. It will include the "latest update COVID-19 info.", "global COVID-19 info.", "historical COVID-19 info.", "vaccine details", "therapeutics status and progress". 
+
+<center>**Here is the variable descriptions for this data source**</center>
+
+```{r variablenames, eval=TRUE}
+variable <- data.frame(
+  'variable_names' = c(
+    "active number",
+    "activePerOneMillion",
+    "cases",
+    "casesPerOneMillion",
+    "continent",
+    "country",
+    "critical",
+    "criticalPerOneMillion",
+    "date",
+    "deaths",
+    "deathsPerOneMillion",
+    "oneCasePerPeople",
+    "oneDeathPerPeople",
+    "oneTestPerPeople",
+    "population",
+    "recovered",
+    "recoveredPerOneMillion",
+    "tests",
+    "testsPerOneMillion",
+    "todayCases",
+    "todayDeaths",
+    "todayRecovered",
+    "updated"
+  ),
+  'description' = c(
+    "confirmed cases - deaths - recovered",
+    "active number / million population",
+    "confirmed cases",
+    "confirmed cases / million population",
+    "continent",
+    "country",
+    "Critical patients",
+    "Critical patients / million population",
+    "date",
+    "deaths",
+    "deaths patients / million population",
+    "one Case Per People",
+    "one Death Per People",
+    "one Test Per People",
+    "population",
+    "recovered",
+    "recovered Per One Million",
+    "COVID-19 test",
+    "COVID-19 test / million population",
+    "confirmed cases in today",
+    "confirmed death cases in today",
+    "confirmed recovered cases in today",
+    "the latest update time"
+  )
+)
+
+```
+
+```{r variable-table, eval=TRUE}
+variable %>% 
+  kable(caption = "Variable Summary for Data Source 1") %>% 
+  kable_classic(full_width = F, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_options = c("striped","hover", "condensed"),
+                position = "center",
+                font_size = 10) %>% 
+  row_spec(0, bold = T, color = "#4199C4", background = "#A7F5D0") %>% 
+  row_spec(0:23, align = "c") %>% 
+  column_spec(1:2, border_right = T, border_left = T) %>% 
+  scroll_box(height = "200px")
+```
+
+
+
+#### Data Source 2 - [New York Times Covid-19 data sets](https://github.com/nytimes/covid-19-data)
+
+This data source is collected by the journalists from the New York Times across several time zones to monitor news conferences and public data releases with seeking clarification from official bodies. It is under the license of [CC BY-NC](https://creativecommons.org/licenses/by-nc/4.0/legalcode) which allows the users to adapt the data with proper attribution given.  
+
+> Contact Information: covid-data@nytimes.com
+
+<center>**Here is the variable descriptions for this data source**</center>
+
+```{r variablenames2, eval=TRUE}
+variable2 <- data.frame(
+  "variable_name" = c(
+    "date",
+    "state",
+    "fips",
+    "cases",
+    "deaths"
+  ),
+  types = c(
+    "character",
+    "character",
+    "integer",
+    "integer",
+    "integer"
+  ),
+  description = c(
+    "date of record",
+    "state name (in US)",
+    "Federal Information Processing Standards (unique code for each state/counties)",
+    "confirmed cases (accumulated)",
+    "confirmed deaths (accumulated)"
+  )
+)
+
+variable2 %>% 
+  kable(caption = "Variable Summary for Data Source 2") %>% 
+  kable_classic(full_width = F, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_options = c("striped","hover", "condensed"),
+                full_width = F,
+                position = "center",
+                font_size = 10) %>% 
+  row_spec(0, bold = T, color = "#4199C4", background = "#A7F5D0", font_size = 12) %>% 
+  row_spec(0:5, align = "c") %>% 
+  column_spec(1:3, border_right = T, border_left = T)
+```
+
+
+
+
+```{r loaddata, cache=TRUE}
 # remotes::install_github("yulab-smu/nCov2019", dependencies = TRUE, force = TRUE)
 library(nCov2019)
 res <- query()
@@ -38,7 +180,7 @@ names(res)
 x <- res$latest
 y <- res$historical
 z <- res$vaccine
-summary(z)
+# summary(z)
 
 ```
 
@@ -54,15 +196,12 @@ vac <- head(z["all"])
 
 
 ```{r data2}
-
+state_data <- read.csv(here::here("data/us-states.csv"))
 ```
 
 
 
-## Target Country - United Stated
- - Brief Introduction: 
 
-### Data Description
 
 
 
