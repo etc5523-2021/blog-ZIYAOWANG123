@@ -14,19 +14,22 @@ output:
 # 1. how can I make the subscribe.html work?
 # 2. why I don't have blog1.html in my docs/post folder?
 # 3. the html code in Welcome rmd will not run in index html, why?
+# 4. the images URL don't work?
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = F, message = F, eval = F)
+knitr::opts_chunk$set(echo = FALSE, warning = F, message = F)
 ```
 
 ```{r loadpackages, eval=TRUE}
 library(tidyverse)
 library(DT)
-library(gt)
 library(kableExtra)
+library(lubridate)
 library(janitor)
-library(naniar)
-library(broom)
+library(plotly)
+library(sparkline)
+
+
 ```
 
 ## Target Country - United Stated
@@ -169,7 +172,7 @@ variable2 %>%
 
 
 
-```{r loaddata, cache=TRUE}
+```{r loaddata}
 # remotes::install_github("yulab-smu/nCov2019", dependencies = TRUE, force = TRUE)
 library(nCov2019)
 res <- query()
@@ -179,26 +182,115 @@ res <- query()
 names(res)
 x <- res$latest
 y <- res$historical
-z <- res$vaccine
-# summary(z)
 
 ```
 
-latest data sets
-```{r}
-us_his <- y["USA"]
+
+```{r data1}
 df_brief <- x["Global"]
 df_detail <- (x$detail)
-
-vac <- head(z["all"])
+us_his <- y["USA"]
 
 ```
 
+**The update COVID-19 information for top 50 countries by total confirmed cases (at 01/09/2021)**
+
+
+```{r table1}
+top50 <- df_brief %>% 
+  arrange(desc(cases)) %>% 
+  slice_head(n=50) %>% 
+  select(-updated, -(cases:recovered))
+
+table1 <- top50 %>% 
+  arrange(desc(todayCases))
+
+datatable(table1, 
+           escape = FALSE,
+           caption = "COVID-19 updates for Top 50 countries (by total confirmed cases)",
+            colnames = c("Country","Total Active cases",
+                         "Update confirmed cases", "Update deaths", 
+                         "Update recovered", "Total population", "Total COVID-19 tested"),
+            options = list(pageLength = 10))
+
+```
+
+**Monthly COVID-19 updates for USA**
+```{r table2-sparkline}
+table2 <- us_his %>% 
+  mutate(year = year(date),
+         month = month(date),
+        new_cases = cases - lag(cases),
+        new_deaths = deaths - lag(deaths),
+        daily_recovered = recovered - lag(recovered)
+        ) %>% 
+  group_by(year,month) %>% 
+  summarise(new_cases = spk_chr(new_cases,
+                                type = "line"),
+            new_deaths = spk_chr(new_deaths,
+                                 type = "line"),
+            daily_recovered = spk_chr(daily_recovered,
+                                 type = "line")
+            ) 
+
+ datatable(table2, 
+           escape = FALSE,
+           caption = "Monthly variations in confirmed, deaths, and recovered cases in USA",
+            colnames = c("Year","Month", "New Cases", "New Deaths", "Daily recovery"),
+            options = list(fnDrawCallback = 
+            htmlwidgets::JS('function(){HTMLWidgets.staticRender();}'))) %>% 
+    spk_add_deps()
+```
+
+**2021/09 monthly COVID-19 updates for each states in USA**
 
 ```{r data2}
 state_data <- read.csv(here::here("data/us-states.csv"))
+update_state <- state_data %>% 
+  mutate(year = year(date),
+         month = month(date),
+         states = state,
+         'cases(accumulated)' = cases,
+         'deaths(accumulated)' = deaths) %>% 
+  select(year:`deaths(accumulated)`) %>% 
+  filter(year == "2021") %>% 
+  filter(month == 9)
+
 ```
 
+```{r table3}
+table3 <- update_state %>% 
+  arrange(desc(`cases(accumulated)`)) %>% 
+  datatable( 
+           escape = FALSE,
+           caption = "Semi-annual monthly variations in confirmed, deaths, and recovered cases in USA",
+            colnames = c("Year","Month", "states", "Total confirmed cases", "Total deaths"),
+            options = list(pageLength = 10))
+table3
+
+```
+
+Construct a line chart to observe the top 5 states with greatest total confirmed cases movement from 2020 to 2021. 
+
+```{r figure1}
+top5_state <- state_data %>% 
+  filter(state %in% c("California",
+                      "Texas",
+                      "Florida",
+                      "New York",
+                      "Illinois"
+                      )) %>% 
+  select(-fips) %>% 
+  mutate(date = ymd(date))
+
+
+figure1 <- top5_state %>% 
+  arrange(desc(cases)) %>% 
+  ggplot(aes(x = date, y = cases, color = state))+
+  geom_line()+
+  theme_bw()
+ggplotly()
+```
 
 
 
