@@ -10,12 +10,13 @@ output:
     toc: true
     toc_float: true
     self_contained: false
+
 ---
 
-# 2. why I don't have blog1.html in my docs/post folder?
-# 3. the html code in Welcome rmd will not run in index html, why?
+
+
 # 4. the images URL don't work?
-# 5. one of the data set, the group_by does not work
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = F, message = F)
@@ -205,11 +206,14 @@ table1 <- top50 %>%
 
 datatable(table1, 
            escape = FALSE,
+           filter = 'top',
            caption = "COVID-19 updates for Top 50 countries (by total confirmed cases)",
             colnames = c("Country","Total Active cases",
                          "Update confirmed cases", "Update deaths", 
-                         "Update recovered", "Total population", "Total COVID-19 tested"),
-            options = list(pageLength = 10))
+                         "Update recovered", "Total population", "Total tested"),
+            options = list(pageLength = 10,
+                           lengthMenu = c(10, 25, 50))) %>% 
+  formatStyle('country', backgroundColor = 'steelblue', fontWeight = 'bold')
 
 ```
 
@@ -233,9 +237,11 @@ table2 <- us_his %>%
 
  datatable(table2, 
            escape = FALSE,
+           filter = 'top',
            caption = "Monthly variations in confirmed, deaths, and recovered cases in USA",
             colnames = c("Year","Month", "New Cases", "New Deaths", "Daily recovery"),
-            options = list(fnDrawCallback = 
+            options = list(lengthMenu = c(10, 25),
+              fnDrawCallback = 
             htmlwidgets::JS('function(){HTMLWidgets.staticRender();}'))) %>% 
     spk_add_deps()
 ```
@@ -259,18 +265,22 @@ update_state <- state_data %>%
 ```{r table3}
 table3 <- update_state %>% 
   arrange(desc(`cases(accumulated)`)) %>% 
-  datatable( 
+  select(-year, -month) %>% 
+  datatable(filter = 'top', 
            escape = FALSE,
-           caption = "Semi-annual monthly variations in confirmed, deaths, and recovered cases in USA",
-            colnames = c("Year","Month", "states", "Total confirmed cases", "Total deaths"),
-            options = list(pageLength = 10))
+           caption = "Monthly variations in confirmed, deaths, and recovered cases in USA",
+            colnames = c("states", "Total confirmed cases", "Total deaths"),
+            options = list(pageLength = 10,
+                           lengthMenu = c(10, 25, 35,55))
+           )%>% 
+  formatStyle('states', fontWeight = 'bold')
 table3
 
 ```
 
 Construct a line chart to observe the top 5 states with greatest total confirmed cases movement from 2020 to 2021. 
 
-```{r figure1}
+```{r figure1, preview = TRUE}
 top5_state <- state_data %>% 
   filter(state %in% c("California",
                       "Texas",
@@ -290,10 +300,8 @@ figure1 <- top5_state %>%
 ggplotly()
 ```
 
-```{r}
-state_data %>% 
-  group_by(state)
-```
+
+
 
 
 
