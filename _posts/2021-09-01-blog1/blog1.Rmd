@@ -11,10 +11,11 @@ output:
     toc_float: true
     self_contained: false
 ---
-# 1. how can I make the subscribe.html work?
+
 # 2. why I don't have blog1.html in my docs/post folder?
 # 3. the html code in Welcome rmd will not run in index html, why?
 # 4. the images URL don't work?
+# 5. one of the data set, the group_by does not work
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = F, message = F)
@@ -25,11 +26,8 @@ library(tidyverse)
 library(DT)
 library(kableExtra)
 library(lubridate)
-library(janitor)
 library(plotly)
 library(sparkline)
-
-
 ```
 
 ## Target Country - United Stated
@@ -292,6 +290,10 @@ figure1 <- top5_state %>%
 ggplotly()
 ```
 
+```{r}
+state_data %>% 
+  group_by(state)
+```
 
 
 

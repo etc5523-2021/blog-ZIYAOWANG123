@@ -7,7 +7,15 @@
     <description>COVID Updates
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 02 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 03 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Blog-1</title>
+      <dc:creator>ZIYAO WANG (Billy)</dc:creator>
+      <link>https://etc5523-2021.github.io/blog-ZIYAOWANG123/posts/2021-09-01-blog1</link>
+      <description>Entry 1 - The update of COVID-19 in the United States.</description>
+      <guid>https://etc5523-2021.github.io/blog-ZIYAOWANG123/posts/2021-09-01-blog1</guid>
+      <pubDate>Fri, 03 Sep 2021 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Welcome to COVID-19 Updates</title>
       <dc:creator>ZIYAO WANG (Billy)</dc:creator>
@@ -22,14 +30,6 @@ which helps the readers to understand the updated information regarding COVID-19
 
 **We hope you enjoy the story and find some interesting insights!**</description>
       <guid>https://etc5523-2021.github.io/blog-ZIYAOWANG123/posts/welcome</guid>
-      <pubDate>Thu, 02 Sep 2021 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Blog-1</title>
-      <dc:creator>ZIYAO WANG (Billy)</dc:creator>
-      <link>https://etc5523-2021.github.io/blog-ZIYAOWANG123/posts/2021-09-01-blog1</link>
-      <description>Entry 1 - The update of COVID-19 in the United States.</description>
-      <guid>https://etc5523-2021.github.io/blog-ZIYAOWANG123/posts/2021-09-01-blog1</guid>
       <pubDate>Thu, 02 Sep 2021 00:00:00 +0000</pubDate>
     </item>
   </channel>
