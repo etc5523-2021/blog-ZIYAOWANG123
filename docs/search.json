@@ -3,17 +3,17 @@
     {
       "path": "about.html",
       "title": "About this blog",
-      "description": "Some additional details about the blog",
+      "description": "This blog is meant for the ETC 5523 Communicating with Data Assignment 1 - Blog Entry 1. \n\n**All the rights** are revered by the _author and the Monash University_. ",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-09-03T16:29:47+10:00"
+      "last_modified": "2021-09-03T16:48:22+10:00"
     },
     {
       "path": "index.html",
       "title": "Blog for COVID-19 Updates",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-09-03T16:29:48+10:00"
+      "last_modified": "2021-09-03T16:42:20+10:00"
     }
   ],
   "collections": ["posts/posts.json"]

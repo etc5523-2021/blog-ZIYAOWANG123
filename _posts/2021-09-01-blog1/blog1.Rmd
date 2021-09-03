@@ -324,5 +324,5 @@ figure1 <- top5_state %>%
 ggplotly()
 ```
 
-
+**If you like this blog, please subscribe it for any updates in the future :).**
 

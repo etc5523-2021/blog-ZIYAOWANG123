@@ -1,7 +1,9 @@
 ---
 title: "About this blog"
 description: |
-  Some additional details about the blog
+  This blog is meant for the ETC 5523 Communicating with Data Assignment 1 - Blog Entry 1. 
+  
+  **All the rights** are revered by the _author and the Monash University_. 
 ---
 
 ```{r setup, include=FALSE}
