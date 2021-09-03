@@ -10,12 +10,8 @@ output:
     toc: true
     toc_float: true
     self_contained: false
-
 ---
 
-
-
-# 4. the images URL don't work?
 
 
 ```{r setup, include=FALSE}
@@ -32,7 +28,8 @@ library(sparkline)
 ```
 
 ## Target Country - United Stated
- - Brief Introduction: 
+
+ - Brief Introduction: It has been a long time since the rapid spread of coronavirus, it creates many inconveniences for people, more importantly, threatening our physical and psychological health. While projecting ourselves safe from the infection, it is also valuable to obtain updated information to inform ourselves of the latest progress since this is a fight for all mankind. Thus, this blog will introduce an overview of the COVID-19 situation in the USA with associated details.   
 
 ### Data Description
 
@@ -46,11 +43,13 @@ The data set is collected from various sources for different relevant informatio
  - Vaccine data from [raps.org](https://www.raps.org/news-and-articles/news-articles/2020/3/covid-19-vaccine-tracker)  
  - Therapeutics data from [raps.org](https://www.raps.org/news-and-articles/news-articles/2020/3/covid-19-therapeutics-tracker)  
 
-This data source contains two core parts. First one is the GUI explorer section which has a function of `dashboard` to use a simple and interactive dashboard for information communication. Second part is the CLI analysis which includes a work flow from data query to data operation and lastly the visulization output of both geographic and animation plots. 
+This data source contains two core parts. The first one is the GUI explorer section which has a function of the `dashboard` to use a simple and interactive dashboard for information communication. 
 
-This blog will __*focus on the CLI analysis part*__, which will query the update COVID-19 data from five different aspects. It will include the "latest update COVID-19 info.", "global COVID-19 info.", "historical COVID-19 info.", "vaccine details", "therapeutics status and progress". 
+The second part is the CLI analysis which includes a workflow from data query to data operation and lastly the visualization output of both geographic and animation plots.
 
-<center>**Here is the variable descriptions for this data source**</center>
+This blog will __*focus on the CLI analysis part*__, which will query the updated COVID-19 data from five different aspects. It will include the "latest update COVID-19 info.", "global COVID-19 info.", "historical COVID-19 info.", "vaccine details", "therapeutics status and progress". 
+
+<center>**Here are the variable descriptions for this data source**</center>
 
 ```{r variablenames, eval=TRUE}
 variable <- data.frame(
@@ -129,7 +128,7 @@ This data source is collected by the journalists from the New York Times across 
 
 > Contact Information: covid-data@nytimes.com
 
-<center>**Here is the variable descriptions for this data source**</center>
+<center>**Here are the variable descriptions for this data source**</center>
 
 ```{r variablenames2, eval=TRUE}
 variable2 <- data.frame(
@@ -169,16 +168,15 @@ variable2 %>%
 ```
 
 
+### Data Exploratory 
 
-
-```{r loaddata}
+```{r loaddata, include=FALSE, message=FALSE, echo=FALSE}
 # remotes::install_github("yulab-smu/nCov2019", dependencies = TRUE, force = TRUE)
 library(nCov2019)
 res <- query()
 ```
 
-```{r readdata}
-names(res)
+```{r readdata,message=FALSE, echo=FALSE}
 x <- res$latest
 y <- res$historical
 
@@ -192,10 +190,12 @@ us_his <- y["USA"]
 
 ```
 
-**The update COVID-19 information for top 50 countries by total confirmed cases (at 01/09/2021)**
+#### Exploratory 1 - Globel Overview
+
+This table \@ref(fig:table1) has illustrated the updated information for top 50 countries _**by the total confirmed cases at 01/09/2021**_. It includes the daily confirmed cases, deaths and recovered (at 01/09/2021), etc. It is obvious that the USA is having the most confirmed cases at this date, hence it may indicate the epidemic circumstance is tough and complicated there.
 
 
-```{r table1}
+```{r table1, fig.cap="table1"}
 top50 <- df_brief %>% 
   arrange(desc(cases)) %>% 
   slice_head(n=50) %>% 
@@ -217,8 +217,26 @@ datatable(table1,
 
 ```
 
-**Monthly COVID-19 updates for USA**
-```{r table2-sparkline}
+#### Exploratory 2 - US Focus
+
+
+The table \@ref(fig:table2-sparkline) shows the monthly movement of USA's daily confirmed cases, death and recoveries. 
+
+Something to notice:
+ 1. The number of deaths is decreasing over time, observing it through checking the numbers under `New Deaths`.   
+ 2. Based on the daily number of confirmed new cases, the pandemic was under controlled in June and August 2020, yet quickly rebounded back from October. In May 2021, things were under control again yet not for long, another breakout started in July. 
+ 
+ - The possible cause for this repetitive fluctuation on the COVID-19 control in the USA may be caused by various reasons. One of them may be the [US President Election](https://time.com/tag/2020-election/), which made a change to the government body and led to different implementations against the pandemic issues.  
+ 
+ - Another reason may be that many civil rights protests were held during the time, which may result in a lagged rapid increase in the confirmed cases after the event.  [Examples - BLM](https://www.nytimes.com/interactive/2020/07/03/us/george-floyd-protests-crowd-size.html) 
+
+
+ * _There is a stop of daily recoveries report at 13/12/2020_, it may cause by either stop record of the data source, or miss recording.  
+
+<center>**Monthly COVID-19 updates for USA**</center>
+
+
+```{r table2-sparkline, fig.cap="table2"}
 table2 <- us_his %>% 
   mutate(year = year(date),
          month = month(date),
@@ -239,14 +257,20 @@ table2 <- us_his %>%
            escape = FALSE,
            filter = 'top',
            caption = "Monthly variations in confirmed, deaths, and recovered cases in USA",
-            colnames = c("Year","Month", "New Cases", "New Deaths", "Daily recovery"),
+            colnames = c("Year","Month", "New Cases", "New Deaths", "Daily recoveries"),
             options = list(lengthMenu = c(10, 25),
               fnDrawCallback = 
             htmlwidgets::JS('function(){HTMLWidgets.staticRender();}'))) %>% 
     spk_add_deps()
 ```
 
-**2021/09 monthly COVID-19 updates for each states in USA**
+#### Exploratory 3 - US's State-level
+
+This table \@ref(fig:table3) demonstrates the updated COVID-19 information on `01/09/2021` for each state (included some special areas, such as Guam and Puerto Rico). It shows a trend that the confirmed cases are centralized in the big cities and states, which may indicate the need for additional supports for these states to help to control the spread of coronavirus over the country effectively.
+
+
+<center>**2021/09 monthly COVID-19 updates for each states in USA**</center>
+
 
 ```{r data2}
 state_data <- read.csv(here::here("data/us-states.csv"))
@@ -262,7 +286,7 @@ update_state <- state_data %>%
 
 ```
 
-```{r table3}
+```{r table3, fig.cap="table3"}
 table3 <- update_state %>% 
   arrange(desc(`cases(accumulated)`)) %>% 
   select(-year, -month) %>% 
@@ -278,9 +302,9 @@ table3
 
 ```
 
-Construct a line chart to observe the top 5 states with greatest total confirmed cases movement from 2020 to 2021. 
+This interactive figure \@ref(fig:figure1) shows the top 5 states with the greatest total confirmed cases movement from 2020 to 2021. It may help to understand the trend mentioned in the last part better with details.  
 
-```{r figure1, preview = TRUE}
+```{r figure1, preview = TRUE, fig.cap="Movement of top 5 states' total confirmed cases"}
 top5_state <- state_data %>% 
   filter(state %in% c("California",
                       "Texas",
@@ -299,11 +323,6 @@ figure1 <- top5_state %>%
   theme_bw()
 ggplotly()
 ```
-
-
-
-
-
 
 
 
