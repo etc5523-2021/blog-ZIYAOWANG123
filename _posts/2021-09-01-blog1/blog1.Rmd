@@ -4,7 +4,7 @@ description:
   Entry 1 - The update of COVID-19 in the United States.
 author:
   - name: ZIYAO WANG (Billy)
-date: "`r Sys.Date()`"
+date: 09-02-2021
 output:
   distill::distill_article:
     toc: true
