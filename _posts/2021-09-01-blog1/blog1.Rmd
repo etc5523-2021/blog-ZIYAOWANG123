@@ -1,5 +1,5 @@
 ---
-title: "Blog-1"
+title: "Blog1 - United States"
 description:
   Entry 1 - The update of COVID-19 in the United States.
 author:
@@ -324,5 +324,5 @@ figure1 <- top5_state %>%
 ggplotly()
 ```
 
-**If you like this blog, subscribe it :)**
+**If you like this blog, subscribing it now! **
 

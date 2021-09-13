@@ -7,14 +7,22 @@
     <description>COVID Updates
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 02 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 13 Sep 2021 00:00:00 +0000</lastBuildDate>
     <item>
-      <title>Blog-1</title>
+      <title>Blog1 - United States</title>
       <dc:creator>ZIYAO WANG (Billy)</dc:creator>
       <link>https://etc5523-2021.github.io/blog-ZIYAOWANG123/posts/2021-09-01-blog1</link>
       <description>Entry 1 - The update of COVID-19 in the United States.</description>
       <guid>https://etc5523-2021.github.io/blog-ZIYAOWANG123/posts/2021-09-01-blog1</guid>
-      <pubDate>Thu, 02 Sep 2021 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 13 Sep 2021 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Blog2 - CHINA</title>
+      <dc:creator>ZIYAO WANG (Billy)</dc:creator>
+      <link>https://etc5523-2021.github.io/blog-ZIYAOWANG123/posts/2021-09-13-blog2</link>
+      <description>Entry 2 - Latest COVID-19 updates for China.</description>
+      <guid>https://etc5523-2021.github.io/blog-ZIYAOWANG123/posts/2021-09-13-blog2</guid>
+      <pubDate>Mon, 13 Sep 2021 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Welcome to COVID-19 Updates</title>

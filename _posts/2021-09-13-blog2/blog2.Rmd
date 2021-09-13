@@ -1,0 +1,29 @@
+---
+title: "Blog2 - CHINA"
+description: |
+  Entry 2 - Latest COVID-19 updates for China.
+author:
+  - name: ZIYAO WANG (Billy)
+
+date: 09-13-2021
+output:
+  distill::distill_article:
+    toc: true
+    toc_float: true
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = F, message = F)
+```
+
+```{r}
+library(tidyverse)
+library(kableExtra)
+library(lubridate)
+library(plotly)
+```
+
+# this is my second blog post!
+
