@@ -4,12 +4,14 @@ description:
   Entry 1 - The update of COVID-19 in the United States.
 author:
   - name: ZIYAO WANG (Billy)
-date: 09-02-2021
+date: 09-03-2021
 output:
   distill::distill_article:
     toc: true
     toc_float: true
     self_contained: false
+
+preview: blog1-us.jpg
 ---
 
 
@@ -168,7 +170,7 @@ variable2 %>%
 ```
 
 
-### Data Exploratory 
+### Data Exploration 
 
 ```{r loaddata, include=FALSE, message=FALSE, echo=FALSE}
 # remotes::install_github("yulab-smu/nCov2019", dependencies = TRUE, force = TRUE)

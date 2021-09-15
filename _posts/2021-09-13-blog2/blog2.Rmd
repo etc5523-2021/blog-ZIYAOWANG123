@@ -11,6 +11,8 @@ output:
     toc: true
     toc_float: true
     self_contained: false
+
+preview: blog2-china.jpg
 ---
 
 
@@ -20,10 +22,75 @@ knitr::opts_chunk$set(echo = FALSE, warning = F, message = F)
 
 ```{r}
 library(tidyverse)
-library(kableExtra)
-library(lubridate)
 library(plotly)
+library(DT)
+library(gganimate)
+library(gifski)
 ```
 
-# this is my second blog post!
+## Target Country - CHINA
+
+> China is
+
+![](intro-blog2.jpg)
+
+
+### Data Description
+
+
+The data used for this blog is hosted by the [**Our World in Data**](https://github.com/owid/covid-19-data/tree/master/public/data/). The time frame of this data is _from 22 January 2020 to 11 September 2021_. It is under the Creative Commons BY [license](https://creativecommons.org/licenses/by/4.0/), which allows users to share and adapt the data. 
+
+Here is the table to show the variables and their descriptions that are used for this blog. If you have any concerns or questions, please do not hesitate and contact the [host](https://github.com/etc5523-2021/blog-ZIYAOWANG123).
+
+
+```{r readdata}
+new_df <- read_csv(here::here("data/owid-covid-data.csv")) %>% 
+  filter(location == "China") %>% 
+  select(c(location:new_cases,total_deaths:new_deaths,hosp_patients, total_vaccinations:people_fully_vaccinated))
+```
+
+```{r}
+
+description <- data.frame(Variables = names(new_df),
+                               Description = c("Country full name",
+                                               "Date of data recorded",
+                                               "Number of total confirmed cases",
+                                               "New cases recorded on the date",
+                                               "Number of total confirmed death cases",
+                                               "New deaths recored on the date",
+                                               "Number of COVID-19 patients in hospital on a given day",
+                                               "Total number of COVID-19 vaccination doses administered",
+                                               "Total number of people who received at least one vaccine dose",
+                                               "Total number of people who received all doses prescribed by the vaccination protocol"))
+datatable(description, escape = FALSE,
+          options = list(pageLength = 5, lengthMenu = c(5, 10)), 
+          class = "cell-border stripe",
+          caption = "Variable & description Summary")
+```
+
+
+
+
+
+
+
+
+
+### Data Exploration
+
+
+
+#### Exploration 1 - 
+
+
+#### Exploration 2 - 
+
+
+#### Exploration 3 -  
+
+
+## Reference
+
+
+
 
