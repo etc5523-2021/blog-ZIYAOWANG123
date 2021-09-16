@@ -26,6 +26,8 @@ library(plotly)
 library(DT)
 library(gganimate)
 library(gifski)
+library(nCov2019)
+library(ggrepel)
 ```
 
 ## Target Country - CHINA
@@ -47,6 +49,10 @@ Here is the table to show the variables and their descriptions that are used for
 new_df <- read_csv(here::here("data/owid-covid-data.csv")) %>% 
   filter(location == "China") %>% 
   select(c(location:new_cases,total_deaths:new_deaths,hosp_patients, total_vaccinations:people_fully_vaccinated))
+
+res <- query()
+x <- res$latest
+y <- res$historical
 ```
 
 ```{r}
@@ -69,24 +75,116 @@ datatable(description, escape = FALSE,
 ```
 
 
+### Data Exploration - China
 
 
 
+#### Exploration 1 - Overview on global COVID-19 testing progress
+
+```{r}
+
+plot(x, region = "Global",
+     palette = "chartreuse",
+     title = "Global overview on number of COVID-19 tested",
+     type = "tests")
+
+```
 
 
 
+#### Exploration 2 - Updates on China's pandemic statistics
 
-### Data Exploration
+```{r}
+
+country = "China"
+
+y[country] -> d
+d <- gather(d, curve, count, -date, -country)
+
+plot_ch <- ggplot(d, aes(date, count, color = curve)) + 
+  geom_point() + 
+  geom_line() + 
+  labs(x= "Date",
+       y= "Number of cases", 
+       title=paste("Trend of cases, recovered and deaths in", country)) +
+  scale_color_manual(values=c("#f39c12", "#dd4b39", "#00a65a")) +
+  theme_bw() +   
+  geom_label_repel(aes(label = paste(curve,count)), 
+                   data = d[d$date == max(d$date), ], hjust = 1) + 
+  theme(axis.text = element_text(angle = 15, hjust = 1)) +
+  scale_x_date(date_labels = "%Y-%m-%d")
+ggplotly()
+```
 
 
 
-#### Exploration 1 - 
+#### Exploration 3 - Vaccination progress
+
+```{r}
+vaccination <- new_df %>% 
+  select(c(date, people_vaccinated, people_fully_vaccinated)) %>% 
+  filter(date >= "2021-06-10" ) %>% 
+  ggplot(aes(x = date)) +
+  geom_area(aes(y = people_vaccinated), fill = "#4C9900")+
+  geom_area(aes(y = people_fully_vaccinated), fill = "#336600")+
+  labs(x = "Date",
+       y = "Number of people vaccinated",
+       title = "Vaccination Progress in China")+
+   annotate("text",
+           x = as.Date("2021-07-01"),
+           y = 900000000,
+           label = "Vaccinated for at least 1 dose",
+           color=  "#4C9900") +
+   annotate("text",
+           x = as.Date("2021-07-01"),
+           y = 850000000,
+           label = "People fully vaccinated",
+           color = "#336600") +
+  scale_x_date(date_breaks = "15 days",date_labels = "%d-%m-%Y")+
+  scale_y_continuous(labels = ~scales::number(.,big.mark = ","))+
+  theme_minimal()+
+  transition_reveal(date)
 
 
-#### Exploration 2 - 
+animate(plot = vaccination, 
+        renderer = gifski_renderer(),
+        fps = 10)
+anim_save("vacc.gif")
+```
+
+#### Exploration 4 - Daily updates for new confirmed cases and deaths
+
+```{r}
+new_update <- new_df %>% 
+  select(c(date, new_cases, new_deaths)) %>% 
+  ggplot(aes(x = date)) +
+  geom_area(aes(y = new_cases), fill = "#F8C471")+
+  geom_area(aes(y = new_deaths), fill = "#1A5276")+
+  labs(x = "Date",
+       y = "Number of new cases & deaths",
+       title = "Daily updates in China")+
+   annotate("text",
+           x = as.Date("2021-05-01"),
+           y = 10000,
+           label = "Number of new confirmed cases",
+           color=  "#9C640C") +
+   annotate("text",
+           x = as.Date("2021-06-01"),
+           y = 9000,
+           label = "Number of new deaths",
+           color = "#1A5276") +
+  scale_x_date(date_breaks = "120 days",date_labels = "%d-%m-%Y")+
+  scale_y_continuous(labels = ~scales::number(.,big.mark = ","))+
+  theme_minimal()+
+  transition_reveal(date)
 
 
-#### Exploration 3 -  
+animate(plot = new_update, 
+        renderer = gifski_renderer(),
+        fps = 10)
+anim_save("update.gif")
+```
+
 
 
 ## Reference
