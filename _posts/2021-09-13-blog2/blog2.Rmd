@@ -129,7 +129,7 @@ ggplotly()
 
 The daily update on both new confirmed cases and deaths will provide a closer view of the COVID-19 status in China. It is clear after the outbreak got under control, the number of daily new confirmed cases and deaths diminish sharply.
 
-__(*Hovering across the figure to obtain detailed information such as date, precise case numbers.)__
+(*Hovering across the figure to obtain detailed information such as date, precise case numbers.)
 
 
 ```{r layout.xaxis.automargin: true}
