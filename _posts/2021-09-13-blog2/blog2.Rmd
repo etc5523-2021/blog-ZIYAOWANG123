@@ -20,7 +20,7 @@ preview: blog2-china.jpg
 knitr::opts_chunk$set(echo = FALSE, warning = F, message = F)
 ```
 
-```{r}
+```{r, include=FALSE}
 library(tidyverse)
 library(plotly)
 library(DT)
@@ -32,7 +32,8 @@ library(ggrepel)
 
 ## Target Country - CHINA
 
-> China is
+> China as the country that has the most population in the world, is one of the initial victims of the coronavirus disease 2019 (COVID-19) outbreak. It happened quietly and spread furiously in the country, it had not only caused thousands of people to suffer but also traumatized people from that happy festival mood (it was the Chinese New Year period). This experience has been engraved in people's minds. No one can forget the people who gave lives to fight against the spread of the pandemic, no matter how small that effort was.  
+Fortunately, with the relevant restrictions and the implementation of vaccinations, the spread of this pandemic has been under control. Now, let's have a view on the current COVID-19 situation in China.
 
 ![](intro-blog2.jpg)
 
@@ -45,10 +46,10 @@ The data used for this blog is hosted by the [**Our World in Data**](https://git
 Here is the table to show the variables and their descriptions that are used for this blog. If you have any concerns or questions, please do not hesitate and contact the [host](https://github.com/etc5523-2021/blog-ZIYAOWANG123).
 
 
-```{r readdata}
+```{r readdata, include=FALSE}
 new_df <- read_csv(here::here("data/owid-covid-data.csv")) %>% 
   filter(location == "China") %>% 
-  select(c(location:new_cases,total_deaths:new_deaths,hosp_patients, total_vaccinations:people_fully_vaccinated))
+  select(c(location:new_cases,total_deaths:new_deaths, total_vaccinations:people_fully_vaccinated))
 
 res <- query()
 x <- res$latest
@@ -64,7 +65,6 @@ description <- data.frame(Variables = names(new_df),
                                                "New cases recorded on the date",
                                                "Number of total confirmed death cases",
                                                "New deaths recored on the date",
-                                               "Number of COVID-19 patients in hospital on a given day",
                                                "Total number of COVID-19 vaccination doses administered",
                                                "Total number of people who received at least one vaccine dose",
                                                "Total number of people who received all doses prescribed by the vaccination protocol"))
@@ -77,9 +77,15 @@ datatable(description, escape = FALSE,
 
 ### Data Exploration - China
 
+> This blog will show the COVID-19 updates in China through different aspects. Starting from a board overview to a national focus, it will concentrate on specific matters, such as vaccination and daily cases. **The main purpose** is to provide not only an overview of the updated COVID-19 information but also highlights the current epidemic situation in China.
 
 
 #### Exploration 1 - Overview on global COVID-19 testing progress
+
+Firstly, from a global perspective, this map shows the total number of COVID-19 tests for each country over the world. It will provide an idea of the progress of epidemic prevention in different countries. 
+
+This map illustrates some countries are in advance in terms of COVID-19 testing, such as China, the US, Russian, India and Germany, etc. This is a great sign that countries are implementing strategies to restrain the spread of COVID-19
+
 
 ```{r}
 
@@ -91,8 +97,10 @@ plot(x, region = "Global",
 ```
 
 
-
 #### Exploration 2 - Updates on China's pandemic statistics
+
+Here is the update about the overview COVID-19 situation in China currently. After the outbreak (in early 2020), the spread of the pandemic has been under control for two months by the government. Since then, the restriction and prevention implementations have had an efficient effect on controlling the increase in the number of cases.
+
 
 ```{r}
 
@@ -104,7 +112,7 @@ d <- gather(d, curve, count, -date, -country)
 plot_ch <- ggplot(d, aes(date, count, color = curve)) + 
   geom_point() + 
   geom_line() + 
-  labs(x= "Date",
+  labs(x= "",
        y= "Number of cases", 
        title=paste("Trend of cases, recovered and deaths in", country)) +
   scale_color_manual(values=c("#f39c12", "#dd4b39", "#00a65a")) +
@@ -117,30 +125,65 @@ ggplotly()
 ```
 
 
+#### Exploration 3 - Daily updates for new confirmed cases and deaths
 
-#### Exploration 3 - Vaccination progress
+The daily update on both new confirmed cases and deaths will provide a closer view of the COVID-19 status in China. It is clear after the outbreak got under control, the number of daily new confirmed cases and deaths diminish sharply.
+
+__(*Hovering across the figure to obtain detailed information such as date, precise case numbers.)__
+
+
+```{r layout.xaxis.automargin: true}
+update <- new_df %>% 
+  select(c(date, new_cases, new_deaths)) %>% 
+  pivot_longer(cols = c("new_cases","new_deaths"),
+               names_to = "type",
+               values_to = "cases") %>% 
+  ggplot(aes(x = date, y = cases, fill = type))+
+  geom_col(width = 30)+
+  facet_wrap(~type, scales = 'free')+
+  labs(title = "Daily cases & deaths update",
+       x = "",
+       y = "")+
+  theme_bw()
+  
+ggplotly(update) %>% 
+  layout(yaxis = list(
+           title=list(text='Number of cases', standoff = 10)))
+```
+
+
+
+#### Exploration 4 - Vaccination progress
+
+Here provides an animation of the progress of vaccination status in China. It suggests in early 2021, there are more and more people are getting at least one dose of the vaccine, and the number of fully vaccinated is in an increasing trend. It shows a bright side of the COVID-19 control in China, yet the vaccination procedure still needs proper management to ensure the progress is implementing as the expectation.
 
 ```{r}
 vaccination <- new_df %>% 
-  select(c(date, people_vaccinated, people_fully_vaccinated)) %>% 
-  filter(date >= "2021-06-10" ) %>% 
+  select(c(date, total_vaccinations, people_vaccinated, people_fully_vaccinated)) %>% 
+  filter(date >= "2020-12-15" ) %>% 
   ggplot(aes(x = date)) +
+  geom_area(aes(y = total_vaccinations), fill = "#117864")+
   geom_area(aes(y = people_vaccinated), fill = "#4C9900")+
   geom_area(aes(y = people_fully_vaccinated), fill = "#336600")+
   labs(x = "Date",
-       y = "Number of people vaccinated",
+       y = "Number of vaccinations",
        title = "Vaccination Progress in China")+
-   annotate("text",
-           x = as.Date("2021-07-01"),
-           y = 900000000,
+  annotate("text",
+           x = as.Date("2021-03-15"),
+           y = 1500000000,
+           label = "Total vaccination doses",
+           color=  "#117864") +
+  annotate("text",
+           x = as.Date("2021-03-15"),
+           y = 1300000000,
            label = "Vaccinated for at least 1 dose",
            color=  "#4C9900") +
-   annotate("text",
-           x = as.Date("2021-07-01"),
-           y = 850000000,
+  annotate("text",
+           x = as.Date("2021-03-15"),
+           y = 1100000000,
            label = "People fully vaccinated",
            color = "#336600") +
-  scale_x_date(date_breaks = "15 days",date_labels = "%d-%m-%Y")+
+  scale_x_date(date_breaks = "60 days",date_labels = "%d-%m-%Y")+
   scale_y_continuous(labels = ~scales::number(.,big.mark = ","))+
   theme_minimal()+
   transition_reveal(date)
@@ -148,47 +191,17 @@ vaccination <- new_df %>%
 
 animate(plot = vaccination, 
         renderer = gifski_renderer(),
-        fps = 10)
+        fps = 8)
 anim_save("vacc.gif")
 ```
 
-#### Exploration 4 - Daily updates for new confirmed cases and deaths
 
-```{r}
-new_update <- new_df %>% 
-  select(c(date, new_cases, new_deaths)) %>% 
-  ggplot(aes(x = date)) +
-  geom_area(aes(y = new_cases), fill = "#F8C471")+
-  geom_area(aes(y = new_deaths), fill = "#1A5276")+
-  labs(x = "Date",
-       y = "Number of new cases & deaths",
-       title = "Daily updates in China")+
-   annotate("text",
-           x = as.Date("2021-05-01"),
-           y = 10000,
-           label = "Number of new confirmed cases",
-           color=  "#9C640C") +
-   annotate("text",
-           x = as.Date("2021-06-01"),
-           y = 9000,
-           label = "Number of new deaths",
-           color = "#1A5276") +
-  scale_x_date(date_breaks = "120 days",date_labels = "%d-%m-%Y")+
-  scale_y_continuous(labels = ~scales::number(.,big.mark = ","))+
-  theme_minimal()+
-  transition_reveal(date)
+### Epilogue
 
-
-animate(plot = new_update, 
-        renderer = gifski_renderer(),
-        fps = 10)
-anim_save("update.gif")
-```
+> Although, it is still too early to call it a "victory", but with all the heart and effort in the globe, one day, the light will shine through darkness and disperse the gloom of COVID-19!
 
 
 
-## Reference
-
-
+**If you enjoy this blog, subscribing it now! **
 
 
